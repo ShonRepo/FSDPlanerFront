@@ -123,10 +123,6 @@
           }
         }
       }
-    }
-  },
-  "defaultProject": "FSDPlanerFront",
-  "cli": {
-    "analytics": false
-  }
+    }},
+  "defaultProject": "FSDPlanerFront"
 }
