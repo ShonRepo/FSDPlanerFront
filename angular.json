@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "FSDPlanerFront": {
+    "angular-heroku": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/FSDPlanerFront",
+            "outputPath": "dist/angular-heroku",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "FSDPlanerFront:build"
+            "browserTarget": "angular-heroku:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "FSDPlanerFront:build:production"
+              "browserTarget": "angular-heroku:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "FSDPlanerFront:build"
+            "browserTarget": "angular-heroku:build"
           }
         },
         "test": {
@@ -114,19 +114,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "FSDPlanerFront:serve"
+            "devServerTarget": "angular-heroku:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "FSDPlanerFront:serve:production"
+              "devServerTarget": "angular-heroku:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "FSDPlanerFront",
+  "defaultProject": "angular-heroku",
   "cli": {
-    "analytics": false
+    "analytics": "ab13988e-ff76-435a-ab93-83eb0b552f2f"
   }
 }
