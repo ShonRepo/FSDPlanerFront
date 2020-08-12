@@ -1,15 +1,5 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Test</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon">
-      <mat-icon>add</mat-icon>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
-<div class="card">
-  <app-card-plan *ngFor="let iterProject of project" [project]="iterProject"></app-card-plan>
-</div>
+<app-toolbar-plan></app-toolbar-plan>
+<app-project-block-plan></app-project-block-plan>
 
 
 

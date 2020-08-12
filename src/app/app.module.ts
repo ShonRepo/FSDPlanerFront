@@ -8,16 +8,26 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { CheckPlanComponent } from './check-plan/check-plan.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CardPlanComponent } from './card-plan/card-plan.component';
-import {MatCardModule} from "@angular/material/card";
-import {MatListModule} from "@angular/material/list";
+import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+import { ToolbarPlanComponent } from './toolbar-plan/toolbar-plan.component';
+import { ProjectBlockPlanComponent } from './project-block-plan/project-block-plan.component';
+import { AddTodoFormPlanComponent } from './add-todo-form-plan/add-todo-form-plan.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
     AppComponent,
     CheckPlanComponent,
-    CardPlanComponent
+    CardPlanComponent,
+    ToolbarPlanComponent,
+    ProjectBlockPlanComponent,
+    AddTodoFormPlanComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +38,12 @@ import {MatListModule} from "@angular/material/list";
     MatCheckboxModule,
     FormsModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

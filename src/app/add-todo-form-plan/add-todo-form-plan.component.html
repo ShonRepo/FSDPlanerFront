@@ -1,0 +1,35 @@
+<form [formGroup]="myFirstReactiveForm" (submit)="onSubmit()">
+  <h1 mat-dialog-title>Добавить задачу</h1>
+  <div mat-dialog-content>
+    <div *ngIf="myFirstReactiveForm.value.project === 'new'">
+      <mat-form-field>
+        <mat-label>Название проекта</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <mat-label>Название задачи</mat-label>
+      <input matInput formControlName="text">
+    </mat-form-field>
+    <br/>
+    <mat-form-field>
+      <mat-label>Выбрать проект</mat-label>
+      <mat-select formControlName="project">
+        <mat-option>---</mat-option>
+        <mat-option value="new">Новая задача</mat-option>
+        <mat-option *ngFor="let initProject of project" [value]="initProject">
+          {{initProject.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      {{myFirstReactiveForm.value | json}}
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button type="submit">отправить</button>
+    <button mat-button type="submit" (click)="closeDialog()">Отмена</button>
+  </div>
+
+</form>
+

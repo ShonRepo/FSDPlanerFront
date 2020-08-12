@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Project} from "../app.component";
+import {Project} from '../project-block-plan/project-block-plan.component';
+
 
 export interface Todo{
   id: number;
