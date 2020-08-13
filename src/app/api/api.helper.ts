@@ -14,8 +14,8 @@ export class SendTodo{
 }
 
 export class ApiHelper{
-  prodURI = 'http://localhost:3000/projects/';
-  todoURI = 'http://localhost:3000/todos';
+  prodURI = 'https://fsdplaner.herokuapp.com/projects/';
+  todoURI = 'https://fsdplaner.herokuapp.com/todos';
 
   private PutURI: string;
 
