@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Todo} from '../card-plan/card-plan.component';
+import {ApiHelper} from '../api/api.helper';
+import {of} from 'rxjs';
+import {delay, repeat, tap} from 'rxjs/operators';
 
 
-export interface Project {
+export class Project {
   id: number;
   title: string;
   todos: Todo[];
@@ -16,25 +19,18 @@ export interface Project {
 export class ProjectBlockPlanComponent implements OnInit {
 
   constructor() { }
-  project: Project[] =
-    [
-      {
-        id: 1, title: 'prod 1', todos: [
-          {id: 1, text: 'test 1', isCompleted: true, project_id: 2},
-          {id: 2, text: 'test 2', isCompleted: false, project_id: 2},
-          {id: 3, text: 'test 3', isCompleted: true, project_id: 2}
-        ]
-      },
-      {
-        id: 1, title: 'prod 2', todos: [
-          {id: 1, text: 'test 1', isCompleted: true, project_id: 2},
-          {id: 2, text: 'test 2', isCompleted: false, project_id: 2},
-          {id: 3, text: 'test 3', isCompleted: true, project_id: 2}
-        ]
-      }
-    ];
+
+
+  project: Project;
 
   ngOnInit(): void {
+    of({}).
+    pipe(
+      tap(() => { this.project = new ApiHelper().GetProject(); }),
+      delay(3000),
+      repeat()
+    ).subscribe();
+
   }
 
 }

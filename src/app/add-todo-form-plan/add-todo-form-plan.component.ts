@@ -2,6 +2,9 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Project} from '../project-block-plan/project-block-plan.component';
+import {ApiHelper} from '../api/api.helper';
+import {of} from 'rxjs';
+
 
 @Component({
   selector: 'app-add-todo-form-plan',
@@ -17,25 +20,13 @@ export class AddTodoFormPlanComponent implements OnInit {
 
   myFirstReactiveForm: FormGroup;
 
-  project: Project[] =
-    [
-      {
-        id: 1, title: 'prod 1', todos: [
-          {id: 1, text: 'test 1', isCompleted: true, project_id: 2},
-          {id: 2, text: 'test 2', isCompleted: false, project_id: 2},
-          {id: 3, text: 'test 3', isCompleted: true, project_id: 2}
-        ]
-      },
-      {
-        id: 1, title: 'prod 2', todos: [
-          {id: 1, text: 'test 1', isCompleted: true, project_id: 2},
-          {id: 2, text: 'test 2', isCompleted: false, project_id: 2},
-          {id: 3, text: 'test 3', isCompleted: true, project_id: 2}
-        ]
-      }
-    ];
+
+  project: Project;
+
 
   ngOnInit(): void {
+    const stream$ = of(new ApiHelper().GetProject());
+    stream$.subscribe(value => this.project = value);
     this.initForm();
   }
 
@@ -69,8 +60,15 @@ export class AddTodoFormPlanComponent implements OnInit {
         .forEach(controlName => controls[controlName].markAsTouched());
       return;
     }
-    console.log(this.myFirstReactiveForm.value);
-    // this.dialogRef.close('add!' );
+    if (this.myFirstReactiveForm.value.project === 'new'){
+      of(new ApiHelper().AddTodoAndCreateProject(this.myFirstReactiveForm.value.text,
+        this.myFirstReactiveForm.value.title)).subscribe(value =>  console.log('add'));
+    }
+    else{
+      of(new ApiHelper().AddTodo(this.myFirstReactiveForm.value.text,
+        this.myFirstReactiveForm.value.project.id)).subscribe(value =>  console.log('add'));
+    }
+    this.dialogRef.close('end!' );
   }
 
 }
