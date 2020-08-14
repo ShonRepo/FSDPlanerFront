@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ApiHelper} from '../api/api.helper';
-import {of} from 'rxjs';
-import {delay, repeat, tap} from 'rxjs/operators';
+import { Component } from '@angular/core';
+import { repeat } from 'rxjs/operators';
 import {Project} from '../model/project';
 import {plainToClass} from 'class-transformer';
 import {HttpService} from '../http.service';

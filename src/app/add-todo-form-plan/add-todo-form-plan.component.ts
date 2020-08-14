@@ -1,10 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ApiHelper} from '../api/api.helper';
-import {of} from 'rxjs';
 import {Project} from '../model/project';
-import {delay, repeat} from 'rxjs/operators';
 import {plainToClass} from 'class-transformer';
 import {HttpService} from '../http.service';
 
@@ -18,7 +15,6 @@ export class AddTodoFormPlanComponent implements OnInit {
   constructor(private http: HttpService, public dialogRef: MatDialogRef<AddTodoFormPlanComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {
     http.GetProject().pipe(
-      repeat()
     ).subscribe(value =>
     {this.project = plainToClass(Project, value); });
   }
