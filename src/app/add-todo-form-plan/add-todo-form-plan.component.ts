@@ -4,6 +4,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ApiHelper} from '../api/api.helper';
 import {of} from 'rxjs';
 import {Project} from '../model/project';
+import {delay, repeat} from 'rxjs/operators';
+import {plainToClass} from 'class-transformer';
+import {HttpService} from '../http.service';
 
 
 @Component({
@@ -12,15 +15,19 @@ import {Project} from '../model/project';
   styleUrls: ['./add-todo-form-plan.component.scss']
 })
 export class AddTodoFormPlanComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<AddTodoFormPlanComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {}
+  constructor(private http: HttpService, public dialogRef: MatDialogRef<AddTodoFormPlanComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {
+    http.GetProject().pipe(
+      repeat()
+    ).subscribe(value =>
+    {this.project = plainToClass(Project, value); });
+  }
 
   AddReactiveForm: FormGroup;
   project: Project;
 
   ngOnInit(): void {
-    const stream$ = of(new ApiHelper().GetProject());
-    stream$.subscribe(value => this.project = value);
+
     this.initForm();
   }
 
@@ -45,12 +52,12 @@ export class AddTodoFormPlanComponent implements OnInit {
       return;
     }
     if (this.AddReactiveForm.value.project === 'new'){
-      of(new ApiHelper().AddTodoAndCreateProject(this.AddReactiveForm.value.text,
-        this.AddReactiveForm.value.title)).subscribe(value =>  console.log('add'));
+      this.http.AddTodoAndCreateProject(this.AddReactiveForm.value.text,
+        this.AddReactiveForm.value.title).subscribe(value => console.log(value));
     }
     else{
-      of(new ApiHelper().AddTodo(this.AddReactiveForm.value.text,
-        this.AddReactiveForm.value.project.id)).subscribe(value =>  console.log('add'));
+      this.http.AddTodo(this.AddReactiveForm.value.text,
+        this.AddReactiveForm.value.project.id).subscribe(value => console.log(value));
     }
     this.dialogRef.close('end!' );
   }

@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ApiHelper} from '../api/api.helper';
-import {of} from 'rxjs';
+import {Component, Input} from '@angular/core';
 import {Todo} from '../model/todo';
+import {HttpService} from '../http.service';
 
 @Component({
   selector: 'app-check-plan',
@@ -10,10 +9,10 @@ import {Todo} from '../model/todo';
 })
 export class CheckPlanComponent {
 
+  constructor(private http: HttpService) {
+  }
   @Input() Todo: Todo;
   UpdateCheck($event): void{
-    const api = new ApiHelper();
-    const stream$ = of(api.UpdateCheck(this.Todo.project_id, this.Todo.id));
-    stream$.subscribe(value => console.log(value));
+    this.http.UpdateCheck(this.Todo.project_id, this.Todo.id).subscribe(value => console.log(value));
   }
 }

@@ -3,7 +3,8 @@ import {ApiHelper} from '../api/api.helper';
 import {of} from 'rxjs';
 import {delay, repeat, tap} from 'rxjs/operators';
 import {Project} from '../model/project';
-import {plainToClass} from "class-transformer";
+import {plainToClass} from 'class-transformer';
+import {HttpService} from '../http.service';
 
 
 @Component({
@@ -14,13 +15,11 @@ import {plainToClass} from "class-transformer";
 export class ProjectBlockPlanComponent{
   project: Project;
 
-  constructor() {
-    of({}).
-    pipe(
-      tap(() => { this.project = new ApiHelper().GetProject(); }),
-      delay(3000),
+  constructor(http: HttpService) {
+    http.GetProject().pipe(
       repeat()
-    ).subscribe();
+    ).subscribe(value =>
+    {this.project = plainToClass(Project, value); });
   }
   trackByFn(index, item): number {
     return item.id;

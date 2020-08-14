@@ -20,6 +20,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {HttpService} from "./http.service";
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -47,7 +48,8 @@ import {HttpService} from "./http.service";
     ReactiveFormsModule,
     MatInputModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]
