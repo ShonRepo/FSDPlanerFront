@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Project} from '../project-block-plan/project-block-plan.component';
 import {ApiHelper} from '../api/api.helper';
 import {of} from 'rxjs';
+import {Project} from '../model/project';
 
 
 @Component({
@@ -14,15 +14,9 @@ import {of} from 'rxjs';
 export class AddTodoFormPlanComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddTodoFormPlanComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {}
-  selectedProject: Project;
 
-  nullProject: Project = {id: 0, title: '', todos: []};
-
-  myFirstReactiveForm: FormGroup;
-
-
+  AddReactiveForm: FormGroup;
   project: Project;
-
 
   ngOnInit(): void {
     const stream$ = of(new ApiHelper().GetProject());
@@ -34,16 +28,8 @@ export class AddTodoFormPlanComponent implements OnInit {
     this.dialogRef.close('end!' );
   }
 
-  isControlInvalid(controlName: string): boolean {
-    const control = this.myFirstReactiveForm.controls[controlName];
-
-    const result = control.invalid && control.touched;
-
-    return result;
-  }
-
   initForm(): void{
-    this.myFirstReactiveForm = this.fb.group({
+    this.AddReactiveForm = this.fb.group({
       title: [null, [Validators.pattern(/^.{0,30}$/)]],
       text: [null, [Validators.required, Validators.pattern(/^.{1,30}$/)]],
       project: [null, [Validators.required]]
@@ -51,24 +37,25 @@ export class AddTodoFormPlanComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const controls = this.myFirstReactiveForm.controls;
-
-
-    if (this.myFirstReactiveForm.invalid) {
+    const controls = this.AddReactiveForm.controls;
+    if (this.AddReactiveForm.invalid) {
 
       Object.keys(controls)
         .forEach(controlName => controls[controlName].markAsTouched());
       return;
     }
-    if (this.myFirstReactiveForm.value.project === 'new'){
-      of(new ApiHelper().AddTodoAndCreateProject(this.myFirstReactiveForm.value.text,
-        this.myFirstReactiveForm.value.title)).subscribe(value =>  console.log('add'));
+    if (this.AddReactiveForm.value.project === 'new'){
+      of(new ApiHelper().AddTodoAndCreateProject(this.AddReactiveForm.value.text,
+        this.AddReactiveForm.value.title)).subscribe(value =>  console.log('add'));
     }
     else{
-      of(new ApiHelper().AddTodo(this.myFirstReactiveForm.value.text,
-        this.myFirstReactiveForm.value.project.id)).subscribe(value =>  console.log('add'));
+      of(new ApiHelper().AddTodo(this.AddReactiveForm.value.text,
+        this.AddReactiveForm.value.project.id)).subscribe(value =>  console.log('add'));
     }
     this.dialogRef.close('end!' );
   }
 
+  trackByFn(index, item): number {
+    return item.id;
+  }
 }

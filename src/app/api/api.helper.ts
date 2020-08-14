@@ -1,39 +1,41 @@
 import {plainToClass, serialize, TransformClassToPlain} from 'class-transformer';
-import {Project} from './project';
+import {Project} from '../model/project';
+import {SendTodo} from '../model/sendTodo';
+import {environment} from '../../environments/environment.prod';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-export class SendTodo{
+@Injectable({providedIn: 'root'})
+export class AccountsHttpService{
+  constructor(private http: HttpClient){}
 
-  constructor(title: string, project_id: number, text: string) {
-    this.project_id = project_id;
-    this.text = text;
-    this.title = title;
+  GetProject(): Observable<any>{
+    return this.http.get(environment.prodURI);
   }
-  title: string;
-  project_id: number;
-  text: string;
 }
 
+
 export class ApiHelper{
-  prodURI = 'https://fsdplaner.herokuapp.com/projects/';
-  todoURI = 'https://fsdplaner.herokuapp.com/todos';
+
 
   private PutURI: string;
 
     public GetProject(): Project {
       const xhr = new XMLHttpRequest();
-      xhr.open('GET', this.prodURI, false);
+      xhr.open('GET', environment.prodURI, false);
       xhr.send();
       if (xhr.status !== 200) {
-        alert( xhr.status + ': ' + xhr.statusText );
+        alert(xhr.status + ': ' + xhr.statusText);
       } else {
         const realProject = plainToClass(Project, JSON.parse(xhr.responseText));
         return realProject;
       }
-   }
+    }
 
    public UpdateCheck(idProject: number, idTodo: number): void {
      const xhr = new XMLHttpRequest();
-     this.PutURI = this.prodURI + idProject + '/todos/' + idTodo;
+     this.PutURI = environment.prodURI + idProject + '/todos/' + idTodo;
      xhr.open('PUT', this.PutURI, false);
      xhr.send();
      if (xhr.status !== 200) {
@@ -42,13 +44,14 @@ export class ApiHelper{
        console.log(xhr.responseText);
      }
    }
+
     public AddTodo(text: string, projectId: number): void{
       const todo = serialize(new SendTodo(null, projectId, text));
       this.PostJson(todo);
     }
     private PostJson(todo: string): void{
       const xhr = new XMLHttpRequest();
-      xhr.open('POST', this.todoURI, false);
+      xhr.open('POST', environment.todoURI, false);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.send(todo);
       if (xhr.status !== 200) {

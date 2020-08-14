@@ -13,7 +13,7 @@ export class ToolbarPlanComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddTodoFormPlanComponent, {
-      width: '450px',
+      width: '250px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -1,7 +1,7 @@
-<form [formGroup]="myFirstReactiveForm">
+<form [formGroup]="AddReactiveForm">
   <h1 mat-dialog-title>Добавить задачу</h1>
   <div mat-dialog-content>
-    <div *ngIf="myFirstReactiveForm.value.project === 'new'">
+    <div *ngIf="AddReactiveForm.value.project === 'new'">
       <mat-form-field>
         <mat-label>Название проекта</mat-label>
         <input matInput formControlName="title">
@@ -17,7 +17,7 @@
       <mat-select formControlName="project">
         <mat-option>---</mat-option>
         <mat-option value="new">Новая задача</mat-option>
-        <mat-option *ngFor="let initProject of project" [value]="initProject">
+        <mat-option *ngFor="let initProject of project; trackBy: trackByFn" [value]="initProject" >
           {{ initProject.title }}
         </mat-option>
       </mat-select>

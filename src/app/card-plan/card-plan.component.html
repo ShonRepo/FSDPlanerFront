@@ -4,7 +4,7 @@
     </mat-card-header>
     <mat-card-content>
       <mat-list>
-        <app-check-plan *ngFor="let iterTodo of project.todos" [Todo]="iterTodo"></app-check-plan>
+        <app-check-plan *ngFor="let iterTodo of project.todos;trackBy: trackByFn" [Todo]="iterTodo"></app-check-plan>
       </mat-list>
     </mat-card-content>
     <mat-card-actions>

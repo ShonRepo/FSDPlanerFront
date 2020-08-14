@@ -1,4 +1,5 @@
-import {Todo} from '../card-plan/card-plan.component';
+import {Todo} from './todo';
+
 
 export class Project {
     id: number;
