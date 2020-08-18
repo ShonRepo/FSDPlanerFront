@@ -47,11 +47,11 @@ export class AddTodoFormPlanComponent implements OnInit {
     }
     if (this.AddReactiveForm.value.project === 'new'){
       this.http.AddTodoAndCreateProject(this.AddReactiveForm.value.text,
-        this.AddReactiveForm.value.title).subscribe(value => console.log(value));
+        this.AddReactiveForm.value.title).subscribe();
     }
     else{
       this.http.AddTodo(this.AddReactiveForm.value.text,
-        this.AddReactiveForm.value.project.id).subscribe(value => console.log(value));
+        this.AddReactiveForm.value.project.id).subscribe();
     }
     this.dialogRef.close();
   }

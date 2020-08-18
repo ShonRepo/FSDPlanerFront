@@ -14,17 +14,17 @@ export class HttpService {
   GetProject(): Observable<object> {
     return this.http.get(environment.prodURI);
   }
-  public UpdateCheck(idProject: number, idTodo: number): Observable<object> {
+  public UpdateCheck(idProject: number, idTodo: number, isCompleted: boolean): Observable<object> {
     const PutURI = environment.prodURI + idProject + '/todos/' + idTodo;
-    return this.http.put(PutURI, null);
+    return this.http.put(PutURI, {isCompleted});
   }
 
   public AddTodo(text: string, project_id: number): Observable<object> {
-    return this.PostJson({ title: null, project_id, text});
+    return this.PostJson( { project_id, todos_attributes: [{ text }]});
   }
 
   public AddTodoAndCreateProject(text: string, title: string): Observable<object>{
-    return this.PostJson(  { title, project_id: null, text });
+    return this.PostJson(  { title, todos_attributes: [{ text }]});
   }
 
   private PostJson(todo: object): Observable<object>{

@@ -1,5 +1,5 @@
 export const environment = {
-  prodURI: 'http://fsdplaner.herokuapp.com/projects/',
-  todoURI: 'http://fsdplaner.herokuapp.com/todos',
+  prodURI: 'https://fsdplaner.herokuapp.com/projects/',
+  todoURI: 'https://fsdplaner.herokuapp.com/todos',
   production: true
 };

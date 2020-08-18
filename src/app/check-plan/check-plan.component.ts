@@ -13,6 +13,6 @@ export class CheckPlanComponent {
   }
   @Input() Todo: Todo;
   UpdateCheck(): void{
-    this.http.UpdateCheck(this.Todo.project_id, this.Todo.id).subscribe(value => console.log(value));
+    this.http.UpdateCheck(this.Todo.project_id, this.Todo.id, this.Todo.isCompleted).subscribe();
   }
 }
