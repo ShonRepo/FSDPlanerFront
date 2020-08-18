@@ -7,21 +7,13 @@ import {MatDialog} from '@angular/material/dialog';
   templateUrl: './toolbar-plan.component.html',
   styleUrls: ['./toolbar-plan.component.scss']
 })
-export class ToolbarPlanComponent implements OnInit {
+export class ToolbarPlanComponent {
 
   constructor(public dialog: MatDialog) { }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(AddTodoFormPlanComponent, {
+    this.dialog.open(AddTodoFormPlanComponent, {
       width: '250px',
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
   }
-
-  ngOnInit(): void {
-  }
-
 }

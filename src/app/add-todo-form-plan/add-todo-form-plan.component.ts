@@ -13,7 +13,7 @@ import {HttpService} from '../http.service';
 })
 export class AddTodoFormPlanComponent implements OnInit {
   constructor(private http: HttpService, public dialogRef: MatDialogRef<AddTodoFormPlanComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) {
+              @Inject(MAT_DIALOG_DATA) public data: object, private fb: FormBuilder) {
     http.GetProject().pipe(
     ).subscribe(value =>
     {this.project = plainToClass(Project, value); });
@@ -23,7 +23,6 @@ export class AddTodoFormPlanComponent implements OnInit {
   project: Project;
 
   ngOnInit(): void {
-
     this.initForm();
   }
 
@@ -42,7 +41,6 @@ export class AddTodoFormPlanComponent implements OnInit {
   onSubmit(): void {
     const controls = this.AddReactiveForm.controls;
     if (this.AddReactiveForm.invalid) {
-
       Object.keys(controls)
         .forEach(controlName => controls[controlName].markAsTouched());
       return;
@@ -55,7 +53,7 @@ export class AddTodoFormPlanComponent implements OnInit {
       this.http.AddTodo(this.AddReactiveForm.value.text,
         this.AddReactiveForm.value.project.id).subscribe(value => console.log(value));
     }
-    this.dialogRef.close('end!' );
+    this.dialogRef.close();
   }
 
   trackByFn(index, item): number {

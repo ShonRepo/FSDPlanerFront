@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { repeat } from 'rxjs/operators';
+import {delay, repeat} from 'rxjs/operators';
 import {Project} from '../model/project';
 import {plainToClass} from 'class-transformer';
 import {HttpService} from '../http.service';
@@ -12,9 +12,9 @@ import {HttpService} from '../http.service';
 })
 export class ProjectBlockPlanComponent{
   project: Project;
-
   constructor(http: HttpService) {
     http.GetProject().pipe(
+      delay(2000),
       repeat()
     ).subscribe(value =>
     {this.project = plainToClass(Project, value); });

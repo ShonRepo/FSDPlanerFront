@@ -12,7 +12,7 @@ export class CheckPlanComponent {
   constructor(private http: HttpService) {
   }
   @Input() Todo: Todo;
-  UpdateCheck($event): void{
+  UpdateCheck(): void{
     this.http.UpdateCheck(this.Todo.project_id, this.Todo.id).subscribe(value => console.log(value));
   }
 }
